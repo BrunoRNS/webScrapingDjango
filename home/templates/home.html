@@ -3,10 +3,13 @@
 <html lang="en">
 <head>
 
+  <link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SPA Static Downloader</title>
   <link rel="stylesheet" href="{% static 'styles.css' %}" />
+  <script type="text/javascript">function startDownload(){const btn=document.getElementById('downloadBtn');const input=document.getElementById('urlInput');btn.disabled=true;btn.classList.add('bounce');btn.innerText='Processing...';setTimeout(()=>{btn.disabled=false;btn.classList.remove('bounce');btn.innerText='Generate ZIP';input.value='';},10000);}</script>
 
 </head>
 
@@ -17,7 +20,7 @@
     <div class="logo">SPA Downloader</div>
     
     <ul>
-      <li><a href="{% url 'index' %}">Home</a></li>
+      <li><a href="{% url 'home' %}">Home</a></li>
       <li><a href="{% url 'about' %}">How It Works</a></li>
     </ul>
 
@@ -27,14 +30,12 @@
     <h1 class="title">Download Static Copies of SPA Sites</h1>
     <p class="subtitle">Enter the URL of a site built with React, Vue, etc., and get a zipped static version.</p>
     
-    <form method="POST" action="{% url 'download_spa_zip' %}" class="form">
+    <form id="downloadForm" method="POST" action="{% url 'download_zip' %}">
 
-      {% csrf_token %}
-      <input type="url" name="url" placeholder="https://example.com" required class="input" />
+        {% csrf_token %}
 
-      <button type="submit" class="button" id="downloadBtn" onclick="startDownloadAnimation()">
-          Generate ZIP
-      </button>
+        <input type="url" name="url" id="urlInput" placeholder="Enter SPA URL" required>
+        <button type="submit" id="downloadBtn" onclick="startDownload()">Generate ZIP</button>
 
     </form>
   </main>

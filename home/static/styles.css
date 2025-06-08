@@ -1,10 +1,11 @@
 :root {
-  --bg: #f9fafb;
-  --accent: #2563eb;
-  --accent-hover: #1d4ed8;
-  --white: #ffffff;
-  --text: #111827;
+  --bg: #111827;
+  --accent: #60a5fa;
+  --accent-hover: #3b82f6;
+  --white: #1f2937;
+  --text: #f9fafb;
 }
+
 
 * {
   box-sizing: border-box;
