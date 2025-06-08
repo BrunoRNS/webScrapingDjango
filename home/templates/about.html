@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How It Works - SPA Downloader</title>
+  <link rel="stylesheet" href="{% static 'styles.css' %}" />
+</head>
+<body>
+  <nav class="nav">
+    <div class="logo">SPA Downloader</div>
+    <ul>
+      <li><a href="{% url 'index' %}">Home</a></li>
+      <li><a href="{% url 'about' %}">How It Works</a></li>
+    </ul>
+  </nav>
+
+  <main class="fade-in container">
+    <h1 class="title">How It Works</h1>
+    <p class="text">
+      This tool uses <strong>Playwright</strong> to render JavaScript-heavy Single Page Applications (SPAs)
+      in a headless browser (using Firefox in this software), then downloads the rendered HTML and assets
+      (CSS, JS, images, fonts) to create a fully static copy.
+    </p>
+    <ul class="text">
+      <li>✅ Supports React, Vue, Angular, Svelte and other SPAs</li>
+      <li>✅ Uses real browser automation for full rendering</li>
+      <li>✅ ZIP package is ready for hosting on Netlify, GitHub Pages, etc.</li>
+      <li>🛡️ Built under the GPLv3 License</li>
+    </ul>
+  </main>
+
+  <footer class="footer">
+    <p>© {{ year }} SPA Downloader. Made By <a href="https://github.com/BrunoRNS/">BrunoRNS</a>. Licensed under <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank">GPLv3</a>.</p>
+  </footer>
+</body>
+</html>
