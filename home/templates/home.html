@@ -3,13 +3,14 @@
 <html lang="en">
 <head>
 
-  <link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
+  <link rel="icon" type="image/png" href="{% static 'icons/favicon.png' %}">
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SPA Static Downloader</title>
-  <link rel="stylesheet" href="{% static 'styles.css' %}" />
-  <script type="text/javascript">function startDownload(){const btn=document.getElementById('downloadBtn');const input=document.getElementById('urlInput');btn.disabled=true;btn.classList.add('bounce');btn.innerText='Processing...';setTimeout(()=>{btn.disabled=false;btn.classList.remove('bounce');btn.innerText='Generate ZIP';input.value='';},10000);}</script>
+  <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
+  <script type="text/javascript" src="{% static 'js/bouncing.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/color_mode.js' %}"></script>
 
 </head>
 
@@ -22,6 +23,8 @@
     <ul>
       <li><a href="{% url 'home' %}">Home</a></li>
       <li><a href="{% url 'about' %}">How It Works</a></li>
+
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme", onclick="chooseColorMode()"></button>
     </ul>
 
   </nav>
@@ -33,9 +36,9 @@
     <form id="downloadForm" method="POST" action="{% url 'download_zip' %}">
 
         {% csrf_token %}
-
-        <input type="url" name="url" id="urlInput" placeholder="Enter SPA URL" required>
-        <button type="submit" id="downloadBtn" onclick="startDownload()">Generate ZIP</button>
+        {{ form.as_p }}
+        
+        <button type="submit" id="downloadBtn">Generate ZIP</button>
 
     </form>
   </main>
@@ -43,6 +46,8 @@
   <footer class="footer">
     <p>© {{ year }} SPA Downloader. Made By <a href="https://github.com/BrunoRNS/">BrunoRNS</a>. Licensed under <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank">GPLv3</a>.</p>
   </footer>
+
+  <script type="text/javascript" src="{% static 'js/home.js' %}"></script>
 
 </body>
 </html>

@@ -3,12 +3,13 @@
 <html lang="en">
 <head>
 
-  <link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
+  <link rel="icon" type="image/png" href="{% static 'icons/favicon.png' %}">
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>How It Works - SPA Downloader</title>
-  <link rel="stylesheet" href="{% static 'styles.css' %}" />
+  <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
+  <script type="text/javascript" src="{% static 'js/color_mode.js' %}"></script>
 
 </head>
 
@@ -22,6 +23,8 @@
 
       <li><a href="{% url 'home' %}">Home</a></li>
       <li><a href="{% url 'about' %}">How It Works</a></li>
+
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" onclick="chooseColorMode()" ></button>
 
     </ul>
 

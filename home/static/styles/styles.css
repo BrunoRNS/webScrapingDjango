@@ -1,4 +1,12 @@
-:root {
+:root.white_mode {
+  --bg: #f0f0f0;
+  --accent: #60a5fa;
+  --accent-hover: #3b82f6;
+  --white: #e1e2e2;
+  --text: #1f2937;
+}
+
+:root.dark_mode {
   --bg: #111827;
   --accent: #60a5fa;
   --accent-hover: #3b82f6;
@@ -112,7 +120,7 @@ body {
 }
 
 .fade-in {
-  animation: fade-in 0.6s ease-in-out forwards;
+  animation: fade-in 1.5s ease-in-out forwards;
 }
 
 .text {
@@ -135,5 +143,67 @@ body {
 }
 
 .bounce {
-  animation: bounce 0.6s infinite;
+
+  animation: bounce 1.0s infinite;
+  
+}
+
+.theme-toggle {
+
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s ease, background-color 0.4s ease;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+  position: relative;
+
+}
+
+/* ícone sol e lua via background */
+.theme-toggle::before {
+
+  content: "";
+  display: block;
+  width: 1.6rem;
+  height: 1.6rem;
+  background-repeat: no-repeat;
+  background-size: contain;
+  transition: transform 0.4s ease;
+
+}
+
+:root.white_mode .theme-toggle::before {
+
+  background-image: url("data:image/svg+xml,%3Csvg fill='%23fff' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 4V2m0 20v-2m10-8h-2M4 12H2m16.24 7.76l-1.42-1.42M6.18 6.18L4.76 4.76m14.48 0l-1.42 1.42M6.18 17.82l-1.42 1.42M12 8a4 4 0 100 8 4 4 0 000-8z'/%3E%3C/svg%3E");
+
+}
+
+:root.dark_mode .theme-toggle::before {
+  
+  background-image: url("data:image/svg+xml,%3Csvg fill='%23fff' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.75 15.5A9 9 0 1112.5 2.25 7 7 0 0021.75 15.5zM6 1l.72 2.22H9l-1.81 1.31.69 2.13L6 5.78 4.12 6.66l.69-2.13L3 3.22h2.28z'/%3E%3C/svg%3E");
+
+}
+
+.theme-toggle:active {
+  
+  transform: rotate(20deg) scale(0.95);
+
+}
+
+:root.white_mode .theme-toggle {
+
+  background-color: darkkhaki;
+
+}
+
+:root.dark_mode .theme-toggle {
+
+  background-color: darkblue;
+
 }

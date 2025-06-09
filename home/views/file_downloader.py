@@ -1,6 +1,7 @@
 from django.http import FileResponse, HttpResponseBadRequest
 from core.spa_downloader.spa_downloader import SPAStaticDownloader
 from django_ratelimit.decorators import ratelimit
+from ..forms.forms import UrlForm
 from datetime import datetime
 
 from django.conf import settings
@@ -10,45 +11,44 @@ BASE_DIR : Path = settings.BASE_DIR
 
 import shutil
 
-@ratelimit(key='ip', rate='3/s', block=True)
+@ratelimit(key='ip', rate='2/s', block=True)
 def download_zip(request):
-        
-    print("Starting Download view...") if settings.DEBUG else ...
+    
+    print("Starting Download view...")
     
     if request.method != "POST":
         
-        print("Bad Request...") if settings.DEBUG else ...
+        print("Bad Request...")
         
         return HttpResponseBadRequest("Only POST requests allowed.")
     
-    url = request.POST.get("url")
+    url = UrlForm(request.POST)
     
-    print(f"Getting url: {url}") if settings.DEBUG else ...
-    
-    if not url:
+    if not url.is_valid():
         
-        return HttpResponseBadRequest("Missing URL.")
+        print("Bad Request...")
+        
+        return HttpResponseBadRequest("Invalid request form, aborting...")
     
-    print("Generating output_file...") if settings.DEBUG else ...
     
     output_file = BASE_DIR / "tmp" / f"spa_{request.user.id}_{datetime.now()}.zip"
     
     downloader = SPAStaticDownloader(
-        url=url,
+        url=url.cleaned_data['input_url'],
         output_dir=str(output_file.parent),
         browser="firefox",
         headless=True
     )
     
-    print("Starting Downloader...") if settings.DEBUG else ...
+    print("Starting Downloader...")
     
     downloader.download()
     
-    print("Creating zip file...") if settings.DEBUG else ...
+    print("Creating zip file...")
 
     shutil.make_archive(str(output_file).removesuffix(output_file.suffix), 'zip', output_file.parent)
 
-    print("Attaching download as fileresponse...") if settings.DEBUG else ...
+    print("Attaching download as fileresponse...")
     
     response = FileResponse(open(output_file, 'rb'), as_attachment=True, filename="spa_site.zip")
     
