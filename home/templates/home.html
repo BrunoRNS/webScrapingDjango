@@ -9,8 +9,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SPA Static Downloader</title>
   <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
-  <script type="text/javascript" src="{% static 'js/bouncing.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/color_mode.js' %}"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoX9EC8cG8lh1Ho5q4k+r8ikABzzSIFgLQQkC++Y5eF+spE"
+      crossorigin="anonymous">
 
 </head>
 
@@ -33,14 +36,26 @@
     <h1 class="title">Download Static Copies of SPA Sites</h1>
     <p class="subtitle">Enter the URL of a site built with React, Vue, etc., and get a zipped static version.</p>
     
-    <form id="downloadForm" method="POST" action="{% url 'download_zip' %}">
+    <div id="formContainer">
+      <form id="downloadForm" method="POST" action="{% url 'download_zip' %}" >
 
         {% csrf_token %}
         {{ form.as_p }}
         
         <button type="submit" id="downloadBtn">Generate ZIP</button>
 
-    </form>
+      </form>
+    </div>
+    
+    <div id="loadingContainer" style="display:none; text-align:center; padding: 20px;">
+
+      <div class="spinner-border text-primary" role="status" style="width: 4rem; height: 4rem;">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <p>Processing your request...</p>
+
+    </div>
+
   </main>
 
   <footer class="footer">
@@ -48,6 +63,14 @@
   </footer>
 
   <script type="text/javascript" src="{% static 'js/home.js' %}"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-z5iw1SFaK8Dvnrq+8RjoBZhDaGH6K5zN3a5IhP3L1W5J++RrhQUBDJsPv6bntFeg"
+            crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+            integrity="sha384-QF6fR8VNDFnH91kYbUZNX0Oom5BlX1xdjTFLP8o1KouWt1FG6kAjzBv2uCfqvYbX"
+            crossorigin="anonymous"></script>
 
 </body>
 </html>

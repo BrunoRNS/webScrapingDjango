@@ -27,6 +27,9 @@ load_dotenv(BASE_DIR / ".env")
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = getenv("DJANGO_SECRET_KEY")
 
+RECAPTCHA_PUBLIC_KEY = getenv("RECAPTCHA_PUBLIC_KEY")
+RECAPTCHA_PRIVATE_KEY = getenv("RECAPTCHA_PRIVATE_KEY")
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = getenv("DEBUG") != "False"
 
@@ -34,7 +37,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-MY_APPS = ["home", "core"]
+MY_APPS = ["home", "core", "django_recaptcha"]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -54,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'core.middleware.TMPcleaner.TmpCleanerMiddleware',
 ]
 
 ROOT_URLCONF = 'WebScrapingDjango.urls'

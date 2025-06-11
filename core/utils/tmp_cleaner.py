@@ -1,33 +1,40 @@
-import os
-import shutil
-import threading
 from datetime import datetime, timedelta
 from django.conf import settings
+from pathlib import Path
+import threading
+import shutil
 
-TMP_DIR = os.path.join(settings.BASE_DIR, 'tmp')
-NEXT_RUN = None
+TMP_DIR = Path(settings.BASE_DIR) / 'tmp'
+AGE_LIMIT_DAYS = 3
 
-def delete_tmp_folder():
+def delete_old_tmp_folders():
     
-    global NEXT_RUN
-
-    now = datetime.now()
-    
-    if NEXT_RUN is None or now >= NEXT_RUN:
+    if not TMP_DIR.exists():
         
-        if os.path.exists(TMP_DIR):
+        # We just ignore it in those cases..
+        return
+
+    cutoff_time = datetime.now() - timedelta(days=AGE_LIMIT_DAYS)
+
+    for folder in TMP_DIR.iterdir():
+        
+        if folder.is_dir():
             
-            shutil.rmtree(TMP_DIR)
-            os.makedirs(TMP_DIR)
+            folder_mtime = datetime.fromtimestamp(folder.stat().st_mtime)
             
-            print(f"[{now}] ✅ Cleaned tmp/")
-            
-        else:
-            
-            print(f"[{now}] ⚠️ tmp/ does not exist")
+            if folder_mtime < cutoff_time:
+                
+                try:
+                    
+                    shutil.rmtree(folder)
+                    print(f"[CLEANER] 🧹 Deleted: {folder.name} (modified: {folder_mtime})")
+                    
+                except Exception as e:
+                    
+                    print(f"[CLEANER] ⚠️ Failed to delete {folder.name}: {e}")
 
 
-        NEXT_RUN = now + timedelta(days=1)
-
-
-    threading.Timer(3600, delete_tmp_folder).start()
+def run_tmp_cleaner_async():
+    
+    thread = threading.Thread(target=delete_old_tmp_folders, daemon=True)
+    thread.start()

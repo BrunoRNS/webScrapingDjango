@@ -1,4 +1,6 @@
 from django import forms
+from django_recaptcha.fields import ReCaptchaField
+from django_recaptcha.widgets import ReCaptchaV2Checkbox
 
 class UrlForm(forms.Form):
     
@@ -17,3 +19,7 @@ class UrlForm(forms.Form):
         )
         
     )
+    
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox(attrs={
+        'id': 'g-recaptcha'
+    }))
