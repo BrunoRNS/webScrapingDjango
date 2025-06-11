@@ -1,9 +1,12 @@
-from django.http import FileResponse, HttpResponseBadRequest
+from django.http import FileResponse
+from django.shortcuts import render
 from core.spa_downloader.spa_downloader import SPAStaticDownloader
 from django_ratelimit.decorators import ratelimit
+from .home import context
 from ..forms.forms import UrlForm
 from datetime import datetime
 from uuid import uuid4
+from copy import deepcopy
 
 from django.conf import settings
 from pathlib import Path
@@ -17,19 +20,21 @@ def download_zip(request):
     
     print("Starting Download view...")
     
+    download_zip_context = deepcopy(context)
+    
     if request.method != "POST":
         
-        print("Bad Request...")
+        download_zip_context["invalid"] = "Invalid request."
         
-        return HttpResponseBadRequest("Only POST requests allowed.")
+        return render(request, "home.html", context=download_zip_context)
     
     url = UrlForm(request.POST)
     
     if not url.is_valid():
         
-        print("Bad Request...")
+        download_zip_context["invalid"] = "Invalid input or reCaptcha expired."
         
-        return HttpResponseBadRequest("Invalid request form, aborting...")
+        return render(request, "home.html", context=download_zip_context)
     
     uniqueID: str = uuid4().hex
     
@@ -54,7 +59,7 @@ def download_zip(request):
     
     for file in output_file.parent.rglob("*"):
         
-        if file == output_file:
+        if file == output_file or file.is_dir():
             continue
         
         else:

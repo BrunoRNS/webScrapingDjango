@@ -40,6 +40,8 @@
       <form id="downloadForm" method="POST" action="{% url 'download_zip' %}" >
 
         {% csrf_token %}
+
+        <i style="color: red;">{{ invalid }}</i>
         {{ form.as_p }}
         
         <button type="submit" id="downloadBtn">Generate ZIP</button>
