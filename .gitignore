@@ -1,9 +1,17 @@
+# virtualenv name
 webscraping/
 
+# cache files
 __pycache__/
 
+# django default database
 db.sqlite3
 
+# temp files
 tmp/
 
+# environment variables
 .env
+
+# VSCode config files
+.vscode/

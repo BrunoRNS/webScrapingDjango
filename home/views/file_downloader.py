@@ -1,5 +1,4 @@
-from django.http import FileResponse
-from django.shortcuts import render
+from django.http import FileResponse, HttpResponse
 from core.spa_downloader.spa_downloader import SPAStaticDownloader
 from django_ratelimit.decorators import ratelimit
 from .home import context
@@ -26,16 +25,16 @@ def download_zip(request):
         
         download_zip_context["invalid"] = "Invalid request."
         
-        return render(request, "home.html", context=download_zip_context)
+        return HttpResponse(status=400)
     
     url = UrlForm(request.POST)
     
-    if not url.is_valid():
+    if (not url.is_valid()):
         
         download_zip_context["invalid"] = "Invalid input or reCaptcha expired."
         
-        return render(request, "home.html", context=download_zip_context)
-    
+        return HttpResponse(status=400)
+
     uniqueID: str = uuid4().hex
     
     output_file = BASE_DIR / "tmp" / f"{uniqueID}" / f"spa_{datetime.now()}.zip"
@@ -67,6 +66,6 @@ def download_zip(request):
 
     print("Attaching download as fileresponse...")
     
-    response = FileResponse(open(output_file, 'rb'), as_attachment=True, filename=f"spa_site_{uniqueID}.zip")
+    response = FileResponse(open(output_file, 'rb'), as_attachment=True, filename=f"spa_site_{uniqueID}.zip", status=200)
     
     return response

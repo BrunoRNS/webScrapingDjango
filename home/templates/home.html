@@ -1,78 +1,66 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
+    <link rel="icon" type="image/png" href="{% static 'img/icons/favicon.png' %}" />
 
-  <link rel="icon" type="image/png" href="{% static 'icons/favicon.png' %}">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SPA Static Downloader</title>
+    <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
+    <script type="text/javascript" src="{% static 'js/color_mode.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/loading.js' %}"></script>
+  </head>
 
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SPA Static Downloader</title>
-  <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
-  <script type="text/javascript" src="{% static 'js/color_mode.js' %}"></script>
+  <body>
+    <nav class="nav">
+      <div class="logo">SPA Downloader</div>
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-ENjdO4Dr2bkBIFxQpeoX9EC8cG8lh1Ho5q4k+r8ikABzzSIFgLQQkC++Y5eF+spE"
-      crossorigin="anonymous">
+      <ul>
+        <li>
+          <a href="{% url 'home' %}">Home</a>
+        </li>
+        <li>
+          <a href="{% url 'about' %}">How It Works</a>
+        </li>
 
-</head>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" onclick="chooseColorMode()"></button>
+      </ul>
+    </nav>
 
-<body>
+    <main class="fade-in container" style="position: relative;">
+      <h1 class="title">Download Static Copies of SPA Sites</h1>
+      <p class="subtitle">Enter the URL of a site built with React, Vue, etc., and get a zipped static version.</p>
 
-  <nav class="nav">
+      <div id="formContainer" style="display: flex;justify-content: center;align-items: center;">
+        <form id="downloadForm" method="POST" action="{% url 'download_zip' %}">
+          {% csrf_token %}
 
-    <div class="logo">SPA Downloader</div>
-    
-    <ul>
-      <li><a href="{% url 'home' %}">Home</a></li>
-      <li><a href="{% url 'about' %}">How It Works</a></li>
+          <div class="inputUrl" style="display: flex; justify-content: center; align-items: center; margin-bottom: 1rem;">{{ form.input_url }}</div>
 
-      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme", onclick="chooseColorMode()"></button>
-    </ul>
+          <div class="inputCaptcha" style="display: flex; justify-content: center; align-items: center; margin-bottom: 1rem;">{{ form.captcha }}</div>
 
-  </nav>
-
-  <main class="fade-in container">
-    <h1 class="title">Download Static Copies of SPA Sites</h1>
-    <p class="subtitle">Enter the URL of a site built with React, Vue, etc., and get a zipped static version.</p>
-    
-    <div id="formContainer">
-      <form id="downloadForm" method="POST" action="{% url 'download_zip' %}" >
-
-        {% csrf_token %}
-
-        <i style="color: red;">{{ invalid }}</i>
-        {{ form.as_p }}
-        
-        <button type="submit" id="downloadBtn">Generate ZIP</button>
-
-      </form>
-    </div>
-    
-    <div id="loadingContainer" style="display:none; text-align:center; padding: 20px;">
-
-      <div class="spinner-border text-primary" role="status" style="width: 4rem; height: 4rem;">
-        <span class="sr-only">Loading...</span>
+          <div id="submitBtn" style="display: inline-block; cursor:pointer; text-align:center;">
+            <button type="submit" id="downloadBtn">Generate ZIP</button>
+          </div>
+        </form>
       </div>
-      <p>Processing your request...</p>
 
-    </div>
+      <div id="loadingContainer" style="display: none;position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: 9999;justify-content: center;align-items: center;">
+          <img src="{% static 'img/gifs/loading.gif' %}" alt="loading GIF" style="max-width:90%; max-height:90%; border:5px solid white; border-radius:8px;" />
+      </div>
+    </main>
 
-  </main>
+    <footer class="footer">
+      <p>
+        © {{ year }} SPA Downloader. Made By <a href="https://github.com/BrunoRNS/">BrunoRNS</a>. Licensed under <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank">GPLv3</a>.
+      </p>
+    </footer>
 
-  <footer class="footer">
-    <p>© {{ year }} SPA Downloader. Made By <a href="https://github.com/BrunoRNS/">BrunoRNS</a>. Licensed under <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank">GPLv3</a>.</p>
-  </footer>
+    <script>
+        const HOME_URL = "{% url 'home' %}";
+    </script>
 
-  <script type="text/javascript" src="{% static 'js/home.js' %}"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-            integrity="sha384-z5iw1SFaK8Dvnrq+8RjoBZhDaGH6K5zN3a5IhP3L1W5J++RrhQUBDJsPv6bntFeg"
-            crossorigin="anonymous"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
-            integrity="sha384-QF6fR8VNDFnH91kYbUZNX0Oom5BlX1xdjTFLP8o1KouWt1FG6kAjzBv2uCfqvYbX"
-            crossorigin="anonymous"></script>
-
-</body>
+    <script type="text/javascript" src="{% static 'js/home.js' %}"></script>
+  </body>
 </html>
