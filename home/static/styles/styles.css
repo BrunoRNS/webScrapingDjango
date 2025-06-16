@@ -235,9 +235,9 @@ body {
   width: 1.4rem;
   height: 1.4rem;
   border-radius: 50%;
-  background: #f9fafb; /* Light moon */
+  background: #111827; /* Light moon */
   position: relative;
-  box-shadow: inset -0.4rem 0 0 0 #111827; /* creates the crescent cut */
+  box-shadow: inset -0.4rem 0 0 0 #f9fafb; /* creates the crescent cut */
 }
 
 /* === Optional background color for button itself === */
