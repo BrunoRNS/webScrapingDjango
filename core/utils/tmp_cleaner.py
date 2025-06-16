@@ -8,6 +8,14 @@ TMP_DIR = Path(settings.BASE_DIR) / 'tmp'
 AGE_LIMIT_DAYS = 3
 
 def delete_old_tmp_folders():
+    """
+    Deletes any tmp folders older than AGE_LIMIT_DAYS days -> 3.
+
+    This function is intended to be run as a background thread. If the tmp folder
+    does not exist, it just returns without doing anything.
+
+    :return: None
+    """
     
     if not TMP_DIR.exists():
         
@@ -35,6 +43,14 @@ def delete_old_tmp_folders():
 
 
 def run_tmp_cleaner_async():
+    """
+    Runs delete_old_tmp_folders as a background thread.
+    
+    This function does not wait for the thread to finish. It just starts the
+    thread and returns immediately.
+    
+    :return: None
+    """
     
     thread = threading.Thread(target=delete_old_tmp_folders, daemon=True)
     thread.start()

@@ -16,6 +16,19 @@ import shutil
 
 @ratelimit(key='ip', rate='2/s', block=True)
 def download_zip(request):
+    """
+    Handles the POST request for downloading a static copy of a SPA website.
+
+    This function is rate-limited to 2 requests per second from the same IP address.
+
+    If the request method is not POST, returns a 400 Bad Request response.
+
+    If the input URL is invalid or the reCaptcha is expired, returns a 400 Bad Request response.
+
+    Otherwise, creates a new instance of SPAStaticDownloader with the provided URL and a unique ID,
+    downloads the static website, creates a ZIP file out of it, and returns it as a FileResponse with the
+    filename "spa_site_<unique_id>.zip".
+    """
     
     print("Starting Download view...")
     

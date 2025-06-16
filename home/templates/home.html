@@ -1,66 +1,88 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <link rel="icon" type="image/png" href="{% static 'img/icons/favicon.png' %}" />
 
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SPA Static Downloader</title>
-    <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
-    <script type="text/javascript" src="{% static 'js/color_mode.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/loading.js' %}"></script>
-  </head>
+<head>
 
-  <body>
-    <nav class="nav">
-      <div class="logo">SPA Downloader</div>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SPA Static Downloader</title>
 
-      <ul>
-        <li>
-          <a href="{% url 'home' %}">Home</a>
-        </li>
-        <li>
-          <a href="{% url 'about' %}">How It Works</a>
-        </li>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{% static 'img/icons/favicon.png' %}" />
 
-        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" onclick="chooseColorMode()"></button>
-      </ul>
-    </nav>
+  <!-- Styles -->
+  <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
 
-    <main class="fade-in container" style="position: relative;">
-      <h1 class="title">Download Static Copies of SPA Sites</h1>
-      <p class="subtitle">Enter the URL of a site built with React, Vue, etc., and get a zipped static version.</p>
+  <!-- Scripts -->
+  <script type="text/javascript" src="{% static 'js/color_mode.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/loading.js' %}"></script>
 
-      <div id="formContainer" style="display: flex;justify-content: center;align-items: center;">
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="logo">SPA Downloader</div>
+    <ul>
+      <li><a href="{% url 'home' %}">Home</a></li>
+      <li><a href="{% url 'about' %}">How It Works</a></li>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" onclick="chooseColorMode()"></button>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="fade-in container" style="position: relative;">
+    <h1 class="title">Download Static Copies of SPA Sites</h1>
+    <p class="subtitle">Enter the URL of a site built with React, Vue, etc., and get a zipped static version.</p>
+
+    <!-- Form and Loading Container Wrapper -->
+    <div style="position: relative;">
+
+      <!-- Form Container -->
+      <div id="formContainer">
         <form id="downloadForm" method="POST" action="{% url 'download_zip' %}">
           {% csrf_token %}
 
-          <div class="inputUrl" style="display: flex; justify-content: center; align-items: center; margin-bottom: 1rem;">{{ form.input_url }}</div>
+          <div class="inputUrl">
+            {{ form.input_url }}
+          </div>
 
-          <div class="inputCaptcha" style="display: flex; justify-content: center; align-items: center; margin-bottom: 1rem;">{{ form.captcha }}</div>
+          <div class="inputCaptcha">
+            {{ form.captcha }}
+          </div>
 
-          <div id="submitBtn" style="display: inline-block; cursor:pointer; text-align:center;">
+          <div id="submitBtn">
             <button type="submit" id="downloadBtn">Generate ZIP</button>
           </div>
         </form>
       </div>
 
-      <div id="loadingContainer" style="display: none;position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: 9999;justify-content: center;align-items: center;">
-          <img src="{% static 'img/gifs/loading.gif' %}" alt="loading GIF" style="max-width:90%; max-height:90%; border:5px solid white; border-radius:8px;" />
+      <!-- Loading Overlay -->
+      <div id="loadingContainer">
+        <img src="{% static 'img/gifs/loading.gif' %}" alt="loading GIF" />
       </div>
-    </main>
 
-    <footer class="footer">
-      <p>
-        © {{ year }} SPA Downloader. Made By <a href="https://github.com/BrunoRNS/">BrunoRNS</a>. Licensed under <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank">GPLv3</a>.
-      </p>
-    </footer>
+    </div>
+  </main>
 
-    <script>
-        const HOME_URL = "{% url 'home' %}";
-    </script>
+  <!-- Footer -->
+  <footer class="footer">
+    <p>
+      © {{ year }} SPA Downloader. Made by
+      <a href="https://github.com/BrunoRNS/">BrunoRNS</a>. Licensed under
+      <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank">GPLv3</a>.
+    </p>
+  </footer>
 
-    <script type="text/javascript" src="{% static 'js/home.js' %}"></script>
-  </body>
+  <!-- JS Constants -->
+  <script type="text/javascript">
+    const HOME_URL = "{% url 'home' %}";
+  </script>
+
+  <!-- Main Script -->
+  <script type="text/javascript" src="{% static 'js/home.js' %}"></script>
+</body>
+
 </html>

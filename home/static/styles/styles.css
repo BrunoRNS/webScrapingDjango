@@ -1,11 +1,17 @@
+/* ===============================
+   🌗 Theme Variables
+   =============================== */
+
+/* Light mode color palette */
 :root.white_mode {
-  --bg: #f0f0f0;
-  --accent: #60a5fa;
-  --accent-hover: #3b82f6;
-  --white: #e1e2e2;
-  --text: #1f2937;
+  --bg: #f0f0f0;              /* Background color */
+  --accent: #60a5fa;          /* Primary accent color */
+  --accent-hover: #3b82f6;    /* Accent color on hover */
+  --white: #e1e2e2;           /* Neutral white background */
+  --text: #1f2937;            /* Text color (dark) */
 }
 
+/* Dark mode color palette */
 :root.dark_mode {
   --bg: #111827;
   --accent: #60a5fa;
@@ -14,18 +20,23 @@
   --text: #f9fafb;
 }
 
-
+/* ===============================
+   🧱 Global Styles
+   =============================== */
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   background: var(--bg);
   color: var(--text);
 }
 
+/* ===============================
+   🧭 Navigation Bar
+   =============================== */
 .nav {
   background: var(--white);
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
@@ -34,23 +45,30 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+
 .nav .logo {
   font-weight: bold;
   font-size: 1.2rem;
 }
+
 .nav ul {
   list-style: none;
   display: flex;
   gap: 1rem;
 }
+
 .nav a {
   text-decoration: none;
   color: var(--text);
 }
+
 .nav a:hover {
   color: var(--accent);
 }
 
+/* ===============================
+   📦 Main Content Container
+   =============================== */
 .container {
   max-width: 600px;
   margin: 4rem auto;
@@ -62,14 +80,36 @@ body {
   animation: fade-in 0.8s ease-in;
 }
 
+/* ===============================
+   📝 Typography
+   =============================== */
 .title {
   font-size: 2rem;
   margin-bottom: 1rem;
 }
+
 .subtitle {
   font-size: 1rem;
   margin-bottom: 2rem;
   color: #555;
+}
+
+.text {
+  text-align: left;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ===============================
+   📥 Form Styling
+   =============================== */
+.inputUrl,
+.inputCaptcha {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .input {
@@ -81,6 +121,22 @@ body {
   font-size: 1rem;
 }
 
+#formContainer {
+  position: relative; 
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+}
+
+#submitBtn {
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* ===============================
+   🔘 Buttons
+   =============================== */
 .button {
   width: 100%;
   padding: 0.8rem;
@@ -92,22 +148,110 @@ body {
   cursor: pointer;
   transition: background 0.3s ease;
 }
+
 .button:hover {
   background: var(--accent-hover);
 }
 
-.footer {
-  text-align: center;
-  font-size: 0.9rem;
-  padding: 2rem;
-  color: #555;
-}
-.footer a {
-  color: var(--accent);
-  text-decoration: none;
+/* ===============================
+   🌀 Loading Overlay
+   =============================== */
+#loadingContainer {
+  display: none; /* Hidden by default */
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Animation */
+#loadingContainer img {
+  max-width: 90%;
+  max-height: 90%;
+  border: 5px solid white;
+  border-radius: 8px;
+}
+
+/* ===============================
+   🌗 Theme Toggle Button
+   =============================== */
+
+/* === Toggle Button Base === */
+.theme-toggle {
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+/* ============================
+   ☀️ SUN DESIGN (White Mode)
+============================= */
+:root.white_mode .theme-toggle::before {
+  content: "";
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 50%;
+  background: #fbbf24; /* Sun yellow */
+  position: relative;
+  box-shadow:
+    0 -1.8rem 0 -1rem #fbbf24,
+    0 1.8rem 0 -1rem #fbbf24,
+    -1.8rem 0 0 -1rem #fbbf24,
+    1.8rem 0 0 -1rem #fbbf24,
+    -1.3rem -1.3rem 0 -1rem #fbbf24,
+    1.3rem -1.3rem 0 -1rem #fbbf24,
+    -1.3rem 1.3rem 0 -1rem #fbbf24,
+    1.3rem 1.3rem 0 -1rem #fbbf24;
+  animation: rotate-rays 4s linear infinite;
+}
+
+@keyframes rotate-rays {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ============================
+   🌙 MOON DESIGN (Dark Mode)
+============================= */
+:root.dark_mode .theme-toggle::before {
+  content: "";
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 50%;
+  background: #f9fafb; /* Light moon */
+  position: relative;
+  box-shadow: inset -0.4rem 0 0 0 #111827; /* creates the crescent cut */
+}
+
+/* === Optional background color for button itself === */
+:root.white_mode .theme-toggle {
+  background-color: #fefce8; /* light yellow background */
+}
+
+:root.dark_mode .theme-toggle {
+  background-color: #1e293b; /* dark background */
+}
+
+/* ===============================
+   🧊 Animations
+   =============================== */
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -123,13 +267,6 @@ body {
   animation: fade-in 1.5s ease-in-out forwards;
 }
 
-.text {
-  text-align: left;
-  margin-top: 1.5rem;
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
 @keyframes bounce {
   0%, 100% {
     transform: translateY(0);
@@ -143,67 +280,24 @@ body {
 }
 
 .bounce {
-
   animation: bounce 1.0s infinite;
-  
 }
 
-.theme-toggle {
-
-  width: 3rem;
-  height: 3rem;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  background-color: var(--accent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.4s ease, background-color 0.4s ease;
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
-  position: relative;
-
+/* ===============================
+   📜 Footer
+   =============================== */
+.footer {
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 2rem;
+  color: #555;
 }
 
-/* ícone sol e lua via background */
-.theme-toggle::before {
-
-  content: "";
-  display: block;
-  width: 1.6rem;
-  height: 1.6rem;
-  background-repeat: no-repeat;
-  background-size: contain;
-  transition: transform 0.4s ease;
-
+.footer a {
+  color: var(--accent);
+  text-decoration: none;
 }
 
-:root.white_mode .theme-toggle::before {
-
-  background-image: url("data:image/svg+xml,%3Csvg fill='%23fff' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 4V2m0 20v-2m10-8h-2M4 12H2m16.24 7.76l-1.42-1.42M6.18 6.18L4.76 4.76m14.48 0l-1.42 1.42M6.18 17.82l-1.42 1.42M12 8a4 4 0 100 8 4 4 0 000-8z'/%3E%3C/svg%3E");
-
-}
-
-:root.dark_mode .theme-toggle::before {
-  
-  background-image: url("data:image/svg+xml,%3Csvg fill='%23fff' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.75 15.5A9 9 0 1112.5 2.25 7 7 0 0021.75 15.5zM6 1l.72 2.22H9l-1.81 1.31.69 2.13L6 5.78 4.12 6.66l.69-2.13L3 3.22h2.28z'/%3E%3C/svg%3E");
-
-}
-
-.theme-toggle:active {
-  
-  transform: rotate(20deg) scale(0.95);
-
-}
-
-:root.white_mode .theme-toggle {
-
-  background-color: darkkhaki;
-
-}
-
-:root.dark_mode .theme-toggle {
-
-  background-color: darkblue;
-
+.footer a:hover {
+  text-decoration: underline;
 }

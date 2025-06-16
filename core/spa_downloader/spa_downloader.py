@@ -19,6 +19,19 @@ class SPAStaticDownloader:
         
     ):
         
+        """
+        Initializes the SPAStaticDownloader with the given parameters.
+
+        Args:
+            url (str): The URL of the SPA site to download.
+            output_dir (str, optional): The directory where the downloaded content will be saved. Defaults to "output".
+            browser (str, optional): The browser to use for rendering the SPA. Defaults to "chromium".
+            headless (bool, optional): Whether to run the browser in headless mode. Defaults to True.
+
+        Raises:
+            ValueError: If the specified browser is not supported.
+        """
+
         self.url = url
         self.output_dir = output_dir
         self.browser_name = browser.lower()
@@ -29,6 +42,12 @@ class SPAStaticDownloader:
             raise ValueError(f"Unsupported browser: {self.browser_name}. Choose from {SUPPORTED_BROWSERS}")
 
     def _save_html(self, html: str):
+        """
+        Saves the given HTML content to the output directory.
+
+        Args:
+            html (str): The HTML content to save.
+        """
         
         os.makedirs(self.output_dir, exist_ok=True)
         path = os.path.join(self.output_dir, "index.html")
@@ -41,7 +60,18 @@ class SPAStaticDownloader:
 
 
     def _download_asset(self, url: str):
-        
+        """
+        Downloads an asset from the specified URL and saves it to the local output directory.
+
+        Args:
+            url (str): The URL of the asset to download.
+
+        The function attempts to download the asset. If successful, it saves the asset
+        to a file in the output directory, preserving the directory structure of the URL.
+        If the URL path is a directory (ends with a slash), the asset is saved as "index.html".
+        Prints a success message upon saving the asset, or an error message if the download fails.
+        """
+
         try:
             
             response = requests.get(url, timeout=10)
@@ -65,7 +95,17 @@ class SPAStaticDownloader:
             
             print(f"[✗] Failed to download {url}: {e}")
 
-    def _extract_assets(self, html: str):
+    def _extract_assets(self, html: str) -> set[str]:
+        """
+        Extracts URLs of assets (CSS, JS, images) from the given HTML string.
+
+        Args:
+            html (str): The HTML string to extract URLs from.
+
+        Returns:
+            set[str]: A set of URLs of extracted assets.
+        """
+        
         soup = BeautifulSoup(html, "html.parser")
         urls = set()
         
@@ -93,7 +133,21 @@ class SPAStaticDownloader:
 
         return urls
 
-    def download(self):
+    def download(self) -> None:
+        """
+        Downloads the SPA site and all its assets to the local output directory.
+
+        This method runs the specified browser in headless mode, navigates to the
+        given URL, waits until the page is fully loaded, extracts all assets
+        (CSS, JS, images) and saves them to the local output directory, while
+        preserving the directory structure of the URL.
+
+        The method prints success messages upon saving the HTML and assets, or
+        an error message if the download fails.
+
+        Returns:
+            None
+        """
         
         print(f"[→] Launching browser: {self.browser_name}")
         
@@ -116,4 +170,5 @@ class SPAStaticDownloader:
                 self._download_asset(asset_url)
 
             browser.close()
+            
             print(f"\n✅ Done! Static site saved to: {os.path.abspath(self.output_dir)}")

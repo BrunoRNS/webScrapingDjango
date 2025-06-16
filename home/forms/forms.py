@@ -3,6 +3,10 @@ from django_recaptcha.fields import ReCaptchaField
 from django_recaptcha.widgets import ReCaptchaV2Checkbox
 
 class UrlForm(forms.Form):
+    """
+    Url Form:
+    The form for the user to input the URL of the site.
+    """
     
     input_url = forms.URLField(
         

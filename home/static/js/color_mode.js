@@ -1,3 +1,9 @@
+/**
+ * Toggle the color mode between light and dark modes.
+ *
+ * If the current mode is dark, it switches to light and vice versa.
+ * It also stores the chosen color mode in the local storage.
+ */
 function chooseColorMode() {
 
   const root = document.documentElement;
