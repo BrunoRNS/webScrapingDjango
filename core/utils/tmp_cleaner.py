@@ -54,3 +54,9 @@ def run_tmp_cleaner_async():
     
     thread = threading.Thread(target=delete_old_tmp_folders, daemon=True)
     thread.start()
+
+if __name__ == "__main__":
+    # For testing purposes, you can run the cleaner directly
+    
+    run_tmp_cleaner_async()
+    print("Tmp cleaner started in background thread.")
