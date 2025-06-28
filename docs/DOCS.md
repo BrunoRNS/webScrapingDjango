@@ -28,7 +28,7 @@
 
 - **SPA to Static**: Converts any public SPA (React, Vue, Angular, Svelte, etc.) into a static site.
 - **Full Asset Download**: Captures HTML, CSS, JS, images, and fonts.
-- **Browser Rendering**: Uses Playwright (Firefox) for real browser rendering.
+- **Browser Rendering**: Uses Playwright (Chromium) for real browser rendering.
 - **Security**: Integrates Google reCAPTCHA, CSRF protection, and rate limiting.
 - **Ready-to-Host ZIP**: Generates a ZIP archive ready for Netlify, GitHub Pages, etc.
 - **Modern UI**: Responsive interface with dark/light mode.
@@ -177,7 +177,7 @@ webScrapingDjango/
 
 ## Troubleshooting
 
-- **Playwright Errors**: Ensure browsers are installed (`playwright install firefox`).
+- **Playwright Errors**: Ensure browsers are installed (`playwright install chromium`).
 - **reCAPTCHA Issues**: Check your keys in `.env`.
 - **Permission Errors**: Ensure the app has write access to the `tmp/` directory.
 - **Dependencies**: Reinstall with `pip install -r requirements.txt`.
