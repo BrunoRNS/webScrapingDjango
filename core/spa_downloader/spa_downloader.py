@@ -14,7 +14,7 @@ class SPAStaticDownloader:
         self, 
         url: str, 
         output_dir: str = "output", 
-        browser: str = "chromium", 
+        browser: str = "firefox", 
         headless: bool = True,
         
     ):
