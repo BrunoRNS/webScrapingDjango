@@ -32,6 +32,10 @@ SECRET_KEY = str(getenv("DJANGO_SECRET_KEY", default=get_random_secret_key()))
 RECAPTCHA_PUBLIC_KEY = str(getenv("RECAPTCHA_PUBLIC_KEY", default=get_random_secret_key()))
 RECAPTCHA_PRIVATE_KEY = str(getenv("RECAPTCHA_PRIVATE_KEY", default=get_random_secret_key()))
 
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = str(getenv("DEBUG", default="True")) == "True"
 
@@ -122,7 +126,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
