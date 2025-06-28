@@ -55,7 +55,7 @@ def download_zip(request):
     downloader = SPAStaticDownloader(
         url=url.cleaned_data['input_url'],
         output_dir=str(output_file.parent),
-        browser="firefox",
+        browser="chromium",
         headless=True
     )
     

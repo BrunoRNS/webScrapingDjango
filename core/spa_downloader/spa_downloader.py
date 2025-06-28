@@ -5,7 +5,7 @@ from bs4 import Tag
 import requests
 import os
 
-SUPPORTED_BROWSERS = ["firefox"]
+SUPPORTED_BROWSERS = ["chromium", "firefox"]
 
 class SPAStaticDownloader:
     
@@ -14,7 +14,7 @@ class SPAStaticDownloader:
         self, 
         url: str, 
         output_dir: str = "output", 
-        browser: str = "firefox", 
+        browser: str = "chromium", 
         headless: bool = True,
         
     ):

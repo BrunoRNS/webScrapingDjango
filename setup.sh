@@ -45,7 +45,7 @@ if [ -f "./requirements.txt" ]; then
     echo "📚 Installing dependencies from requirements.txt..."
     pip3 install -r requirements.txt
 
-    playwright install firefox
+    playwright install chromium
 
 else
 
