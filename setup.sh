@@ -45,6 +45,8 @@ if [ -f "./requirements.txt" ]; then
     echo "📚 Installing dependencies from requirements.txt..."
     pip3 install -r requirements.txt
 
+    playwright install firefox
+
 else
 
     echo "⚠️  requirements.txt not found. Skipping dependency installation."
