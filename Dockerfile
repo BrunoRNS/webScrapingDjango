@@ -9,7 +9,7 @@ ENV PLAYWRIGHT_BROWSERS_PATH=0
 # Set app directory
 WORKDIR /app
 
-RUN apt-get install -y python3-pip python3-dev python3-virtualenv && \
+RUN apt-get update && apt-get install -y python3-pip python3-dev python3-virtualenv && \
     rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
