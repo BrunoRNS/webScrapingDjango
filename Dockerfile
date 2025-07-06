@@ -23,4 +23,4 @@ COPY . .
 
 EXPOSE 8000
 
-CMD ["sh", "-c", "./venv/bin/python manage.py migrate && python manage.py collectstatic --noinput && ./venv/bin/gunicorn WebScrapingDjango.wsgi:application --bind 0.0.0.0:$PORT --workers 3"]
+CMD ["sh", "-c", "./venv/bin/python3 manage.py migrate && ./venv/bin/python3 manage.py collectstatic --noinput && ./venv/bin/gunicorn WebScrapingDjango.wsgi:application --bind 0.0.0.0:$PORT --workers 3"]
