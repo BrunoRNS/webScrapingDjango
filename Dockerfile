@@ -21,6 +21,6 @@ RUN virtualenv venv && \
 
 COPY . .
 
-EXPOSE 5000
+EXPOSE 8000
 
-CMD ["./venv/bin/gunicorn", "--bind", "0.0.0.0:5000", "--workers", "1", "--threads", "1", "--worker-class", "sync", "--log-level", "info", "app:app"]
+CMD ["sh", "-c", "./venv/bin/python manage.py migrate && python manage.py collectstatic --noinput && gunicorn WebScrapingDjango.wsgi:application --bind 0.0.0.0:$PORT --workers 3"]

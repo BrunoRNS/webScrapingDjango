@@ -17,6 +17,5 @@ requests>=2.32.3
 python-dotenv>=1.1.0
 django-ratelimit>=4.1.0
 django-recaptcha>=4.1.0
-flask>=3.1.0
-validators>=0.35.0
 gunicorn>=23.0.0
+whitenoise>=6.9.0
