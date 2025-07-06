@@ -10,12 +10,18 @@ ENV PLAYWRIGHT_BROWSERS_PATH=0
 WORKDIR /app
 
 # Update package list and install basic development tools
-RUN apt-get update && apt-get install -y python3-pip python3-dev build-essential && \
+RUN apt-get update && apt-get install -y python3-pip python3-dev python3-virtualenv build-essential && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy requirements and install Python dependencies
 COPY requirements.txt .
-RUN pip3 install --no-cache-dir -r requirements.txt
+RUN virtualenv venv
+
+RUN source ./venv/bin/activate
+
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt && \
+    playwright install chromium
 
 # Copy all application code
 COPY . .
