@@ -39,7 +39,7 @@ CSRF_COOKIE_SECURE = True
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = str(getenv("DEBUG", default="True")) == "True"
 
-ALLOWED_HOSTS = ["https://webscrapingdjango.onrender.com/"]
+ALLOWED_HOSTS = ["webscrapingdjango.onrender.com"]
 
 # Application definition
 
