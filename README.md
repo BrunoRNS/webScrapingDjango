@@ -8,7 +8,7 @@
 
 ### Usage
 
-**To access this website hosted with _render_ visit [SPA Static Downloader](.)**
+**To access this website hosted with _render_ visit [SPA Static Downloader](https://webscrapingdjango.onrender.com/)**
 
 ### Security
 
